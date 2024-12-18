@@ -23,7 +23,17 @@ app.use(session({
   resave: false, // don't save session if unmodified
   saveUninitialized: false, // don't create session until something stored
 secret: process.env.SESSION_SECRET || 
-    require('crypto').randomBytes(32).toString('hex')
+secret: process.env.SESSION_SECRET || 
+      require('crypto').randomBytes(32).toString('hex'),
+  cookie: {
+    secure: process.env.NODE_ENV === 'production', // Require HTTPS in production
+    httpOnly: true,
+    sameSite: 'lax',
+    maxAge: 24 * 60 * 60 * 1000 // 24 hours
+  }
+
+// Remove duplicate app.use(express.urlencoded())
+@@ -15,7 +15,6 @@
 }));
 
 // Session-persisted message middleware
