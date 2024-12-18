@@ -46,7 +46,8 @@ secret: process.env.SESSION_SECRET || (function() {
   cookie: {
     secure: true,
     httpOnly: true,
-    sameSite: 'strict'
+sameSite: 'strict',
+    path: '/'
 httpOnly: true
 }));
 
