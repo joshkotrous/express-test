@@ -12,14 +12,25 @@ var session = require('express-session');
 
 var app = express();
 
-// Populates req.session
-app.use(session({
+secret: process.env.SESSION_SECRET || crypto.randomBytes(32).toString('hex'),
+  cookie: {
+    secure: true, // Ensure cookies are only sent over HTTPS
+    httpOnly: true, // Prevent client-side access to cookies
+    sameSite: 'strict', // Protect against CSRF
+    maxAge: 1000 * 60 * 60 * 24 // 24 hours
+  },
+  name: 'sessionId', // Change default session cookie name
+  rolling: true // Refresh session with each request
+if (app.get('env') === 'production' && !process.env.SESSION_SECRET) {
+  console.error('WARNING: SESSION_SECRET not set in production environment');
+}
+const secret = process.env.SESSION_SECRET || crypto.randomBytes(32).toString('hex');
   resave: false, // don't save session if unmodified
   saveUninitialized: false, // don't create session until something stored
   secret: 'keyboard cat'
 }));
 
-app.get('/', function(req, res){
+secret: secret
   var body = '';
   if (req.session.views) {
     ++req.session.views;
@@ -29,7 +40,7 @@ app.get('/', function(req, res){
   }
   res.send(body + '<p>viewed <strong>' + req.session.views + '</strong> times.</p>');
 });
-
+var body = '';
 /* istanbul ignore next */
 if (!module.parent) {
   app.listen(3000);
