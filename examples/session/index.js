@@ -9,7 +9,7 @@
 
 var express = require('../..');
 var session = require('express-session');
-
+var crypto = require('crypto');
 var app = express();
 
 secret: process.env.SESSION_SECRET || crypto.randomBytes(32).toString('hex'),
