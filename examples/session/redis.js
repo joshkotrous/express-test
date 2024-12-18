@@ -20,7 +20,7 @@ app.use(logger('dev'));
 app.use(session({
   resave: false, // don't save session if unmodified
   saveUninitialized: false, // don't create session until something stored
-secret: process.env.SESSION_SECRET || throw new Error('SESSION_SECRET environment variable must be set'),
+secret: process.env.SESSION_SECRET || crypto.randomBytes(32).toString('hex'),
 secret: process.env.SESSION_SECRET || crypto.randomBytes(32).toString('hex'),
   store: new RedisStore,
   cookie: {
