@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-var express = require('../..');
+var crypto = require('crypto');
 var logger = require('morgan');
 var session = require('express-session');
 
