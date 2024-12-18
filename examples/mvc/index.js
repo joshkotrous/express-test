@@ -45,7 +45,7 @@ secret: 'some secret here',
     secure: true,
     httpOnly: true,
     sameSite: 'strict'
-  }
+httpOnly: true
 }));
 
 // parse request bodies (req.body)
