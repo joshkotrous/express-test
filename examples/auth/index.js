@@ -29,7 +29,12 @@ app.use(session({
 
 app.use(function(req, res, next){
   var err = req.session.error;
-  var msg = req.session.success;
+if (!process.env.SESSION_SECRET) {
+    console.warn('Warning: SESSION_SECRET environment variable not set');
+  }
+  if (process.env.NODE_ENV === 'production' && !process.env.SESSION_SECRET) {
+    throw new Error('SESSION_SECRET must be set in production');
+  }
   delete req.session.error;
   delete req.session.success;
   res.locals.message = '';
