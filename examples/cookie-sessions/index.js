@@ -23,7 +23,12 @@ secure: process.env.NODE_ENV === 'development' ? false : true,
 
 // do something with the session
 app.get('/', function (req, res) {
+name: 'session'
+}));
+app.get('/', function (req, res) {
   req.session.count = (req.session.count || 0) + 1
+  res.send('viewed ' + req.session.count + ' times\n')
+});
   res.send('viewed ' + req.session.count + ' times\n')
 })
 
