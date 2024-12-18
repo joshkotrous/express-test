@@ -24,7 +24,12 @@ module.exports = function renderFile(fileName, options, callback) {
 
 function generateVariableLookup(data) {
   return function variableLookup(str, path) {
-    var parts = path.split('.');
+if (!path || typeof path !== 'string') {
+      return undefined;
+    }
+
+    var value = Object.create(null);
+    Object.assign(value, data);
     var value = data;
 
     for (var i = 0; i < parts.length; i++) {
