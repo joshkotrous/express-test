@@ -23,7 +23,10 @@ app.use(session({
 secret: process.env.SESSION_SECRET || crypto.randomBytes(32).toString('hex'),
 secret: process.env.SESSION_SECRET || crypto.randomBytes(32).toString('hex'),
   store: new RedisStore,
-  cookie: {
+sameSite: 'strict',
+    httpOnly: true,
+    secure: true,
+    domain: process.env.COOKIE_DOMAIN || undefined
 sameSite: 'strict',
     maxAge: 24 * 60 * 60 * 1000, // 24 hours
     httpOnly: true
