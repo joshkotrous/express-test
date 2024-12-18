@@ -47,6 +47,10 @@ secret: process.env.SESSION_SECRET || (function() {
     secure: true,
     httpOnly: true,
 sameSite: 'strict',
+    domain: process.env.COOKIE_DOMAIN || '.example.com',
+    expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
+  }
+app.use(express.urlencoded({ extended: true }));
     path: '/',
     maxAge: 24 * 60 * 60 * 1000, // 24 hours
     expires: new Date(Date.now() + 24 * 60 * 60 * 1000)
