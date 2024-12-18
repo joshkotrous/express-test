@@ -22,7 +22,8 @@ app.use(express.urlencoded())
 app.use(session({
   resave: false, // don't save session if unmodified
   saveUninitialized: false, // don't create session until something stored
-  secret: 'shhhh, very secret'
+secret: process.env.SESSION_SECRET || 
+    require('crypto').randomBytes(32).toString('hex')
 }));
 
 // Session-persisted message middleware
