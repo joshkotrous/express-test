@@ -40,7 +40,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   resave: false, // don't save session if unmodified
   saveUninitialized: false, // don't create session until something stored
-  secret: 'some secret here'
+secret: 'some secret here',
+  cookie: {
+    secure: true,
+    httpOnly: true,
+    sameSite: 'strict'
+  }
 }));
 
 // parse request bodies (req.body)
