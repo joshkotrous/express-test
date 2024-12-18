@@ -25,10 +25,20 @@ app.use(session({
 secret: process.env.SESSION_SECRET || 
 secret: process.env.SESSION_SECRET || 
       require('crypto').randomBytes(32).toString('hex'),
-  cookie: {
+secure: true, // Always require HTTPS
     secure: process.env.NODE_ENV === 'production', // Require HTTPS in production
     httpOnly: true,
-    sameSite: 'lax',
+maxAge: 24 * 60 * 60 * 1000, // 24 hours
+    path: '/'
+}));
+
+// Force HTTPS redirection
+app.use((req, res, next) => {
+  if (process.env.NODE_ENV === 'production' && !req.secure) {
+    return res.redirect('https://' + req.headers.host + req.url);
+  }
+  next();
+});
     maxAge: 24 * 60 * 60 * 1000 // 24 hours
   }
 

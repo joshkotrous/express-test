@@ -25,7 +25,9 @@ secret: process.env.SESSION_SECRET || crypto.randomBytes(32).toString('hex'),
   store: new RedisStore,
   cookie: {
     secure: true,
-    httpOnly: true,
+sameSite: 'strict',
+    path: '/',
+    maxAge: 24 * 60 * 60 * 1000 // 24 hours
     sameSite: 'strict'
   }
 }));

@@ -47,6 +47,9 @@ secret: process.env.SESSION_SECRET || (function() {
     secure: true,
     httpOnly: true,
 sameSite: 'strict',
+    path: '/',
+    maxAge: 24 * 60 * 60 * 1000, // 24 hours
+    expires: new Date(Date.now() + 24 * 60 * 60 * 1000)
     path: '/'
 httpOnly: true
 }));
