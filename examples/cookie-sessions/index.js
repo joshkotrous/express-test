@@ -12,7 +12,8 @@ var app = module.exports = express();
 // add req.session cookie support
 app.use(cookieSession({
   secret: process.env.SESSION_SECRET || 'change-me-in-production-123456789012345678901234',
-  secure: true,
+secure: process.env.NODE_ENV === 'development' ? false : true,
+  secureProxy: process.env.NODE_ENV !== 'development',
   httpOnly: true,
   sameSite: 'strict',
   maxAge: 24 * 60 * 60 * 1000, // 24 hours
