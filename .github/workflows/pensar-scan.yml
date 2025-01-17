@@ -1,7 +1,5 @@
 name: Pensar Security Scan
 on: # Configure the events that this action should run on: 'push', 'pull_request'
-  push:
-    branches-ignore: [main] # Run only on branches with PRs, not on direct pushes to main
   pull_request:
     types:
       - opened
@@ -16,5 +14,5 @@ jobs:
         uses: pensarai/scan-action@main
         with:
           api-key: ${{ secrets.PENSAR_API_KEY }}
-          environment: "dev" 
-        id: pensar-scan 
+          environment: "dev"
+        id: pensar-scan
