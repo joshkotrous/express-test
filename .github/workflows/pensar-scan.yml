@@ -17,4 +17,4 @@ jobs:
         with:
           api-key: ${{ secrets.PENSAR_API_KEY }}
           environment: "dev" 
-        id: pensar-scan 
+          id: pensar-scan 
